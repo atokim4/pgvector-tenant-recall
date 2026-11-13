@@ -232,8 +232,9 @@ Useful flags: `--only hnsw_default btree_planner`, `--plan-cache generic`,
 connection string (see `.env.example`).
 
 `--dataset real` swaps the synthetic vectors for Simple English Wikipedia paragraphs embedded with
-all-MiniLM-L6-v2 (`pip install -e '.[real]'`; the first run downloads about 160 MB and embeds 200k
-chunks, which takes over an hour on 2 vCPU, then caches them). `scripts/check_langchain_v2.py`
+all-MiniLM-L6-v2 (`pip install -e '.[real]'`, then put the parquet file from `ptr/realdata.py` in
+`--cache`). It is experimental: the tenant layout is unit tested, but embedding 200k chunks ran out
+of memory on my 4 GB box, so every number in this README comes from the synthetic data. `scripts/check_langchain_v2.py`
 needs `pip install -e '.[langchain]'`.
 
 ## Output
