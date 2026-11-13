@@ -1,0 +1,150 @@
+{
+ "pgvector": "0.8.7",
+ "k": 10,
+ "results": [
+  {
+   "options": "default (ef_search 40)",
+   "tenant_rows": 1,
+   "queries": 60,
+   "recall": 0.05,
+   "short_share": 0.95,
+   "p50_ms": 2.6,
+   "leaks": 0
+  },
+  {
+   "options": "default (ef_search 40)",
+   "tenant_rows": 10,
+   "queries": 60,
+   "recall": 0.085,
+   "short_share": 1.0,
+   "p50_ms": 2.6,
+   "leaks": 0
+  },
+  {
+   "options": "default (ef_search 40)",
+   "tenant_rows": 100,
+   "queries": 60,
+   "recall": 0.562,
+   "short_share": 0.617,
+   "p50_ms": 2.6,
+   "leaks": 0
+  },
+  {
+   "options": "default (ef_search 40)",
+   "tenant_rows": 1000,
+   "queries": 60,
+   "recall": 0.783,
+   "short_share": 0.333,
+   "p50_ms": 2.8,
+   "leaks": 0
+  },
+  {
+   "options": "iterative_scan=strict_order",
+   "tenant_rows": 1,
+   "queries": 60,
+   "recall": 0.383,
+   "short_share": 0.617,
+   "p50_ms": 60.4,
+   "leaks": 0
+  },
+  {
+   "options": "iterative_scan=strict_order",
+   "tenant_rows": 10,
+   "queries": 60,
+   "recall": 0.578,
+   "short_share": 0.833,
+   "p50_ms": 64.6,
+   "leaks": 0
+  },
+  {
+   "options": "iterative_scan=strict_order",
+   "tenant_rows": 100,
+   "queries": 60,
+   "recall": 0.977,
+   "short_share": 0.0,
+   "p50_ms": 4.5,
+   "leaks": 0
+  },
+  {
+   "options": "iterative_scan=strict_order",
+   "tenant_rows": 1000,
+   "queries": 60,
+   "recall": 0.955,
+   "short_share": 0.0,
+   "p50_ms": 3.7,
+   "leaks": 0
+  },
+  {
+   "options": "strict_order + max_scan_tuples=100000",
+   "tenant_rows": 1,
+   "queries": 60,
+   "recall": 0.7,
+   "short_share": 0.3,
+   "p50_ms": 395.2,
+   "leaks": 0
+  },
+  {
+   "options": "strict_order + max_scan_tuples=100000",
+   "tenant_rows": 10,
+   "queries": 60,
+   "recall": 0.832,
+   "short_share": 0.717,
+   "p50_ms": 391.1,
+   "leaks": 0
+  },
+  {
+   "options": "strict_order + max_scan_tuples=100000",
+   "tenant_rows": 100,
+   "queries": 60,
+   "recall": 0.977,
+   "short_share": 0.0,
+   "p50_ms": 4.5,
+   "leaks": 0
+  },
+  {
+   "options": "strict_order + max_scan_tuples=100000",
+   "tenant_rows": 1000,
+   "queries": 60,
+   "recall": 0.955,
+   "short_share": 0.0,
+   "p50_ms": 4.2,
+   "leaks": 0
+  },
+  {
+   "options": "B-tree on (langchain_metadata->>'user_id')",
+   "tenant_rows": 1,
+   "queries": 60,
+   "recall": 1.0,
+   "short_share": 0.0,
+   "p50_ms": 1.6,
+   "leaks": 0
+  },
+  {
+   "options": "B-tree on (langchain_metadata->>'user_id')",
+   "tenant_rows": 10,
+   "queries": 60,
+   "recall": 1.0,
+   "short_share": 0.0,
+   "p50_ms": 1.8,
+   "leaks": 0
+  },
+  {
+   "options": "B-tree on (langchain_metadata->>'user_id')",
+   "tenant_rows": 100,
+   "queries": 60,
+   "recall": 1.0,
+   "short_share": 0.0,
+   "p50_ms": 1.9,
+   "leaks": 0
+  },
+  {
+   "options": "B-tree on (langchain_metadata->>'user_id')",
+   "tenant_rows": 1000,
+   "queries": 60,
+   "recall": 0.785,
+   "short_share": 0.333,
+   "p50_ms": 2.9,
+   "leaks": 0
+  }
+ ]
+}

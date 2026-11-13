@@ -1,0 +1,88 @@
+{
+  "versions": {
+    "postgres": "17.12 (Debian 17.12-1.pgdg12+1)",
+    "pgvector": "0.8.7"
+  },
+  "python": "3.11.2",
+  "dataset": {
+    "source": "synthetic",
+    "rows": 200000,
+    "dim": 128,
+    "latent_dim": 32,
+    "ambient_noise": 0.05,
+    "topics": 200,
+    "background_tenants": 2000,
+    "tenant_zipf": 1.07,
+    "topic_zipf": 1.0,
+    "topic_noise": 0.9,
+    "tenant_offset": 0.45,
+    "queries_per_bucket": 60,
+    "seed": 20261113,
+    "probe_buckets": {
+      "1": 30,
+      "10": 30,
+      "100": 30,
+      "1000": 20,
+      "10000": 5
+    }
+  },
+  "k": 10,
+  "hnsw_options": "m = 16, ef_construction = 64",
+  "load": {
+    "load_s": 2.7
+  },
+  "truth_check": {
+    "checked": 25,
+    "pg_vs_numpy_recall_below_1": 0,
+    "max_distance_gap": 9.00387896463073e-08
+  },
+  "builds": [
+    {
+      "hnsw_build_s": 43.0,
+      "fw_meta_gin_s": 0.6,
+      "fw_li_user_s": 0.2,
+      "fw_mem0_user_s": 0.1,
+      "btree_build_s": 0.1,
+      "expr_btree_build_s": 0.1,
+      "part_hnsw_build_s": 40.5
+    },
+    {
+      "hnsw_build_s": 56.5,
+      "fw_meta_gin_s": 0.5,
+      "fw_li_user_s": 0.2,
+      "fw_mem0_user_s": 0.1,
+      "btree_build_s": 0.1,
+      "expr_btree_build_s": 0.1,
+      "part_hnsw_build_s": 33.0
+    },
+    {
+      "hnsw_build_s": 39.0,
+      "fw_meta_gin_s": 0.5,
+      "fw_li_user_s": 0.2,
+      "fw_mem0_user_s": 0.1,
+      "btree_build_s": 0.1,
+      "expr_btree_build_s": 0.1,
+      "part_hnsw_build_s": 31.3
+    }
+  ],
+  "unfiltered_recall": [
+    {
+      "ef_search_40": 0.9197,
+      "ef_search_200": 0.9873
+    },
+    {
+      "ef_search_40": 0.9183,
+      "ef_search_200": 0.989
+    },
+    {
+      "ef_search_40": 0.9083,
+      "ef_search_200": 0.9907
+    }
+  ],
+  "sizes": {
+    "items": "296 MB",
+    "items_hnsw": "159 MB",
+    "items_tenant": "1424 kB",
+    "items_user": "1472 kB"
+  }
+}

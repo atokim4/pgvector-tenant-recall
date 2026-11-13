@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pgvector-tenant-recall"
+version = "0.1.0"
+description = "Benchmark: recall of tenant-filtered pgvector HNSW search per tenant size"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Sunnatulla E" }]
+dependencies = [
+  "psycopg[binary]==3.2.13",
+  "pgvector==0.4.2",
+  "numpy==2.4.6",
+  "matplotlib==3.11.2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==9.2.0", "ruff"]
+# --dataset real (Simple English Wikipedia + all-MiniLM-L6-v2)
+real = ["fastembed==0.9.1", "pyarrow==26.0.1"]
+# scripts/check_langchain_v2.py
+langchain = ["langchain-postgres==0.0.19"]
+
+[tool.setuptools]
+packages = ["ptr"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

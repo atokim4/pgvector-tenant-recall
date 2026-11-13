@@ -1,0 +1,246 @@
+strategy,plan_cache,label,bucket,builds,mean_recall,recall_low,recall_high,zero_share,short_share,hnsw_share,p50_ms,p95_ms
+hnsw_default,custom,"HNSW, defaults (ef_search 40)",1,3,1.0,1.0,1.0,0.0,0.0,0.0,37.3633,52.05
+hnsw_default,custom,"HNSW, defaults (ef_search 40)",10,3,1.0,1.0,1.0,0.0,0.0,0.0,37.0433,52.82
+hnsw_default,custom,"HNSW, defaults (ef_search 40)",100,3,1.0,1.0,1.0,0.0,0.0,0.0,34.8833,61.4067
+hnsw_default,custom,"HNSW, defaults (ef_search 40)",1000,3,0.7755,0.7733,0.78,0.0611,0.3389,1.0,1.2133,1.9633
+hnsw_default,custom,"HNSW, defaults (ef_search 40)",10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.1633,1.4167
+hnsw_default,generic,"HNSW, defaults (ef_search 40)",1,3,0.1,0.0833,0.1167,0.9,0.9,1.0,1.25,1.8167
+hnsw_default,generic,"HNSW, defaults (ef_search 40)",10,3,0.0822,0.0767,0.0867,0.6722,1.0,1.0,1.1767,1.66
+hnsw_default,generic,"HNSW, defaults (ef_search 40)",100,3,0.5417,0.5267,0.555,0.1833,0.6333,1.0,1.01,1.59
+hnsw_default,generic,"HNSW, defaults (ef_search 40)",1000,3,0.7755,0.7733,0.78,0.0611,0.3389,1.0,1.1733,1.55
+hnsw_default,generic,"HNSW, defaults (ef_search 40)",10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.2233,1.6667
+hnsw_ef200,custom,"HNSW, ef_search 200",1,3,1.0,1.0,1.0,0.0,0.0,0.0,30.17,41.1267
+hnsw_ef200,custom,"HNSW, ef_search 200",10,3,1.0,1.0,1.0,0.0,0.0,0.0,29.7067,33.04
+hnsw_ef200,custom,"HNSW, ef_search 200",100,3,1.0,1.0,1.0,0.0,0.0,0.0,29.8633,38.5533
+hnsw_ef200,custom,"HNSW, ef_search 200",1000,3,0.9561,0.955,0.9567,0.0,0.1,1.0,2.8867,4.7433
+hnsw_ef200,custom,"HNSW, ef_search 200",10000,3,0.9972,0.9967,0.9983,0.0,0.0,1.0,3.0967,4.3667
+hnsw_ef200,generic,"HNSW, ef_search 200",1,3,0.2,0.2,0.2,0.8,0.8,1.0,3.3233,4.7567
+hnsw_ef200,generic,"HNSW, ef_search 200",10,3,0.1928,0.1917,0.1933,0.3278,1.0,1.0,2.9633,4.55
+hnsw_ef200,generic,"HNSW, ef_search 200",100,3,0.7734,0.7617,0.7817,0.0667,0.3722,1.0,2.1433,4.02
+hnsw_ef200,generic,"HNSW, ef_search 200",1000,3,0.9561,0.955,0.9567,0.0,0.1,1.0,2.65,4.12
+hnsw_ef200,generic,"HNSW, ef_search 200",10000,3,0.9972,0.9967,0.9983,0.0,0.0,1.0,2.9833,4.5533
+hnsw_ef1000,custom,"HNSW, ef_search 1000 (max)",1,3,1.0,1.0,1.0,0.0,0.0,0.0,37.8467,56.37
+hnsw_ef1000,custom,"HNSW, ef_search 1000 (max)",10,3,1.0,1.0,1.0,0.0,0.0,0.0,35.82,50.2833
+hnsw_ef1000,custom,"HNSW, ef_search 1000 (max)",100,3,1.0,1.0,1.0,0.0,0.0,0.0,32.5667,46.3467
+hnsw_ef1000,custom,"HNSW, ef_search 1000 (max)",1000,3,0.9989,0.9983,1.0,0.0,0.0,1.0,8.84,13.23
+hnsw_ef1000,custom,"HNSW, ef_search 1000 (max)",10000,3,1.0,1.0,1.0,0.0,0.0,1.0,8.1233,13.0
+hnsw_ef1000,generic,"HNSW, ef_search 1000 (max)",1,3,0.3,0.3,0.3,0.7,0.7,1.0,11.6167,16.1567
+hnsw_ef1000,generic,"HNSW, ef_search 1000 (max)",10,3,0.3344,0.3333,0.335,0.1167,0.95,1.0,9.8667,14.5133
+hnsw_ef1000,generic,"HNSW, ef_search 1000 (max)",100,3,0.9244,0.9233,0.9267,0.0,0.15,1.0,7.9267,13.9933
+hnsw_ef1000,generic,"HNSW, ef_search 1000 (max)",1000,3,0.9989,0.9983,1.0,0.0,0.0,1.0,8.67,13.1233
+hnsw_ef1000,generic,"HNSW, ef_search 1000 (max)",10000,3,1.0,1.0,1.0,0.0,0.0,1.0,7.8867,12.9933
+iter_strict,custom,iterative_scan strict_order,1,3,1.0,1.0,1.0,0.0,0.0,0.0,31.1533,38.2967
+iter_strict,custom,iterative_scan strict_order,10,3,1.0,1.0,1.0,0.0,0.0,0.0,29.8333,39.74
+iter_strict,custom,iterative_scan strict_order,100,3,1.0,1.0,1.0,0.0,0.0,0.0,34.0033,51.3733
+iter_strict,custom,iterative_scan strict_order,1000,3,0.9428,0.9417,0.945,0.0,0.0,1.0,1.17,7.0833
+iter_strict,custom,iterative_scan strict_order,10000,3,0.92,0.9167,0.9233,0.0,0.0,1.0,1.1767,3.4467
+iter_strict,generic,iterative_scan strict_order,1,3,0.4833,0.4333,0.5333,0.5167,0.5167,1.0,50.79,63.4267
+iter_strict,generic,iterative_scan strict_order,10,3,0.5667,0.545,0.5817,0.0056,0.8167,1.0,48.7367,60.5967
+iter_strict,generic,iterative_scan strict_order,100,3,0.9611,0.9517,0.9717,0.0,0.0,1.0,1.83,27.2
+iter_strict,generic,iterative_scan strict_order,1000,3,0.9428,0.9417,0.945,0.0,0.0,1.0,1.3,7.9033
+iter_strict,generic,iterative_scan strict_order,10000,3,0.92,0.9167,0.9233,0.0,0.0,1.0,1.38,3.9767
+iter_relaxed,custom,iterative_scan relaxed_order,1,3,1.0,1.0,1.0,0.0,0.0,0.0,31.0133,41.7067
+iter_relaxed,custom,iterative_scan relaxed_order,10,3,1.0,1.0,1.0,0.0,0.0,0.0,30.8067,46.3233
+iter_relaxed,custom,iterative_scan relaxed_order,100,3,1.0,1.0,1.0,0.0,0.0,0.0,29.8233,41.56
+iter_relaxed,custom,iterative_scan relaxed_order,1000,3,0.9817,0.98,0.985,0.0,0.0,1.0,1.2633,7.13
+iter_relaxed,custom,iterative_scan relaxed_order,10000,3,0.9339,0.9333,0.935,0.0,0.0,1.0,1.1867,2.8333
+iter_relaxed,generic,iterative_scan relaxed_order,1,3,0.5167,0.5,0.5333,0.4833,0.4833,1.0,49.5633,77.4533
+iter_relaxed,generic,iterative_scan relaxed_order,10,3,0.5928,0.585,0.6,0.0,0.7389,1.0,48.0567,60.7
+iter_relaxed,generic,iterative_scan relaxed_order,100,3,0.9972,0.995,0.9983,0.0,0.0,1.0,1.76,23.0433
+iter_relaxed,generic,iterative_scan relaxed_order,1000,3,0.9817,0.98,0.985,0.0,0.0,1.0,1.1767,6.5867
+iter_relaxed,generic,iterative_scan relaxed_order,10000,3,0.9339,0.9333,0.935,0.0,0.0,1.0,1.23,2.79
+iter_relaxed_100k,custom,"relaxed_order, max_scan_tuples 100k",1,3,1.0,1.0,1.0,0.0,0.0,0.0,29.9367,37.7967
+iter_relaxed_100k,custom,"relaxed_order, max_scan_tuples 100k",10,3,1.0,1.0,1.0,0.0,0.0,0.0,29.5167,39.4767
+iter_relaxed_100k,custom,"relaxed_order, max_scan_tuples 100k",100,3,1.0,1.0,1.0,0.0,0.0,0.0,29.38,37.5633
+iter_relaxed_100k,custom,"relaxed_order, max_scan_tuples 100k",1000,3,0.9817,0.98,0.985,0.0,0.0,1.0,1.2,6.8067
+iter_relaxed_100k,custom,"relaxed_order, max_scan_tuples 100k",10000,3,0.9339,0.9333,0.935,0.0,0.0,1.0,1.1533,2.5733
+iter_relaxed_100k,generic,"relaxed_order, max_scan_tuples 100k",1,3,0.8667,0.85,0.8833,0.1333,0.1333,1.0,326.61,401.7467
+iter_relaxed_100k,generic,"relaxed_order, max_scan_tuples 100k",10,3,0.8433,0.8233,0.8617,0.0,0.5333,1.0,305.1767,363.2067
+iter_relaxed_100k,generic,"relaxed_order, max_scan_tuples 100k",100,3,0.9972,0.995,0.9983,0.0,0.0,1.0,1.6233,19.9533
+iter_relaxed_100k,generic,"relaxed_order, max_scan_tuples 100k",1000,3,0.9817,0.98,0.985,0.0,0.0,1.0,1.13,6.0167
+iter_relaxed_100k,generic,"relaxed_order, max_scan_tuples 100k",10000,3,0.9339,0.9333,0.935,0.0,0.0,1.0,1.1733,2.33
+jsonb_default,custom,"JSONB filter, HNSW defaults",1,3,0.1,0.0833,0.1167,0.9,0.9,1.0,1.1767,1.78
+jsonb_default,custom,"JSONB filter, HNSW defaults",10,3,0.0822,0.0767,0.0867,0.6722,1.0,1.0,1.0233,1.3933
+jsonb_default,custom,"JSONB filter, HNSW defaults",100,3,0.5417,0.5267,0.555,0.1833,0.6333,1.0,0.93,1.38
+jsonb_default,custom,"JSONB filter, HNSW defaults",1000,3,0.7755,0.7733,0.78,0.0611,0.3389,1.0,1.0367,1.3267
+jsonb_default,custom,"JSONB filter, HNSW defaults",10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.1333,1.47
+jsonb_default,generic,"JSONB filter, HNSW defaults",1,3,0.1,0.0833,0.1167,0.9,0.9,1.0,1.18,1.7833
+jsonb_default,generic,"JSONB filter, HNSW defaults",10,3,0.0822,0.0767,0.0867,0.6722,1.0,1.0,1.0233,1.4167
+jsonb_default,generic,"JSONB filter, HNSW defaults",100,3,0.5417,0.5267,0.555,0.1833,0.6333,1.0,0.96,1.3733
+jsonb_default,generic,"JSONB filter, HNSW defaults",1000,3,0.7755,0.7733,0.78,0.0611,0.3389,1.0,1.0667,1.37
+jsonb_default,generic,"JSONB filter, HNSW defaults",10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.1667,1.4267
+jsonb_relaxed,custom,"JSONB filter, relaxed_order",1,3,0.5167,0.5,0.5333,0.4833,0.4833,1.0,51.6667,58.5533
+jsonb_relaxed,custom,"JSONB filter, relaxed_order",10,3,0.5928,0.585,0.6,0.0,0.7389,1.0,51.3833,62.67
+jsonb_relaxed,custom,"JSONB filter, relaxed_order",100,3,0.9972,0.995,0.9983,0.0,0.0,1.0,1.7167,24.51
+jsonb_relaxed,custom,"JSONB filter, relaxed_order",1000,3,0.9817,0.98,0.985,0.0,0.0,1.0,1.2033,6.9467
+jsonb_relaxed,custom,"JSONB filter, relaxed_order",10000,3,0.9339,0.9333,0.935,0.0,0.0,1.0,1.2567,2.7767
+jsonb_relaxed,generic,"JSONB filter, relaxed_order",1,3,0.5167,0.5,0.5333,0.4833,0.4833,1.0,52.16,67.5867
+jsonb_relaxed,generic,"JSONB filter, relaxed_order",10,3,0.5928,0.585,0.6,0.0,0.7389,1.0,50.6033,62.8367
+jsonb_relaxed,generic,"JSONB filter, relaxed_order",100,3,0.9972,0.995,0.9983,0.0,0.0,1.0,1.8267,22.72
+jsonb_relaxed,generic,"JSONB filter, relaxed_order",1000,3,0.9817,0.98,0.985,0.0,0.0,1.0,1.1533,6.5
+jsonb_relaxed,generic,"JSONB filter, relaxed_order",10000,3,0.9339,0.9333,0.935,0.0,0.0,1.0,1.2267,2.68
+langchain_pgvector,custom,langchain-postgres PGVector,1,3,0.1,0.0833,0.1167,0.9,0.9,1.0,1.3267,1.93
+langchain_pgvector,custom,langchain-postgres PGVector,10,3,0.0822,0.0767,0.0867,0.6722,1.0,1.0,1.37,1.97
+langchain_pgvector,custom,langchain-postgres PGVector,100,3,0.5417,0.5267,0.555,0.1833,0.6333,1.0,1.2867,2.0333
+langchain_pgvector,custom,langchain-postgres PGVector,1000,3,0.7755,0.7733,0.78,0.0611,0.3389,1.0,1.4433,2.0167
+langchain_pgvector,custom,langchain-postgres PGVector,10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.4833,2.01
+langchain_pgvector,generic,langchain-postgres PGVector,1,3,0.1,0.0833,0.1167,0.9,0.9,1.0,1.4467,2.1167
+langchain_pgvector,generic,langchain-postgres PGVector,10,3,0.0822,0.0767,0.0867,0.6722,1.0,1.0,1.34,1.8833
+langchain_pgvector,generic,langchain-postgres PGVector,100,3,0.5417,0.5267,0.555,0.1833,0.6333,1.0,1.12,1.64
+langchain_pgvector,generic,langchain-postgres PGVector,1000,3,0.7755,0.7733,0.78,0.0611,0.3389,1.0,1.3133,1.7067
+langchain_pgvector,generic,langchain-postgres PGVector,10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.38,1.6767
+langchain_pgvectorstore,custom,langchain-postgres PGVectorStore (v2),1,3,0.1,0.0833,0.1167,0.9,0.9,1.0,1.4467,2.1133
+langchain_pgvectorstore,custom,langchain-postgres PGVectorStore (v2),10,3,0.0822,0.0767,0.0867,0.6722,1.0,1.0,1.2367,1.7533
+langchain_pgvectorstore,custom,langchain-postgres PGVectorStore (v2),100,3,0.5417,0.5267,0.555,0.1833,0.6333,1.0,1.16,1.69
+langchain_pgvectorstore,custom,langchain-postgres PGVectorStore (v2),1000,3,0.7755,0.7733,0.78,0.0611,0.3389,1.0,1.2433,1.6667
+langchain_pgvectorstore,custom,langchain-postgres PGVectorStore (v2),10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.3233,1.65
+llamaindex,custom,llama-index PGVectorStore,1,3,0.1,0.0833,0.1167,0.9,0.9,1.0,1.3933,2.1333
+llamaindex,custom,llama-index PGVectorStore,10,3,0.0822,0.0767,0.0867,0.6722,1.0,1.0,1.2233,1.6967
+llamaindex,custom,llama-index PGVectorStore,100,3,0.5417,0.5267,0.555,0.1833,0.6333,1.0,1.11,1.6633
+llamaindex,custom,llama-index PGVectorStore,1000,3,0.7755,0.7733,0.78,0.0611,0.3389,1.0,1.3067,1.7167
+llamaindex,custom,llama-index PGVectorStore,10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.3567,1.7267
+llamaindex_indexed_key,custom,llama-index + indexed_metadata_keys,1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.1967,0.3733
+llamaindex_indexed_key,custom,llama-index + indexed_metadata_keys,10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2033,0.3
+llamaindex_indexed_key,custom,llama-index + indexed_metadata_keys,100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2833,0.3733
+llamaindex_indexed_key,custom,llama-index + indexed_metadata_keys,1000,3,0.7755,0.7733,0.78,0.0611,0.3389,1.0,1.3767,2.18
+llamaindex_indexed_key,custom,llama-index + indexed_metadata_keys,10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.3767,1.8
+haystack,custom,"haystack PgvectorDocumentStore, hnsw",1,3,0.1,0.0833,0.1167,0.9,0.9,1.0,1.34,2.13
+haystack,custom,"haystack PgvectorDocumentStore, hnsw",10,3,0.0822,0.0767,0.0867,0.6722,1.0,1.0,1.2667,1.7967
+haystack,custom,"haystack PgvectorDocumentStore, hnsw",100,3,0.5417,0.5267,0.555,0.1833,0.6333,1.0,1.1867,1.7533
+haystack,custom,"haystack PgvectorDocumentStore, hnsw",1000,3,0.7755,0.7733,0.78,0.0611,0.3389,1.0,1.2333,1.6233
+haystack,custom,"haystack PgvectorDocumentStore, hnsw",10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.34,1.76
+mem0,custom,mem0 PGVector,1,3,0.1,0.0833,0.1167,0.9,0.9,1.0,1.3167,2.0933
+mem0,custom,mem0 PGVector,10,3,0.0822,0.0767,0.0867,0.6722,1.0,1.0,1.1467,1.5367
+mem0,custom,mem0 PGVector,100,3,0.5417,0.5267,0.555,0.1833,0.6333,1.0,0.9933,1.36
+mem0,custom,mem0 PGVector,1000,3,0.7755,0.7733,0.78,0.0611,0.3389,1.0,1.14,1.5667
+mem0,custom,mem0 PGVector,10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.22,1.59
+mem0,generic,mem0 PGVector,1,3,0.1,0.0833,0.1167,0.9,0.9,1.0,1.2667,1.8933
+mem0,generic,mem0 PGVector,10,3,0.0822,0.0767,0.0867,0.6722,1.0,1.0,1.1833,1.5933
+mem0,generic,mem0 PGVector,100,3,0.5417,0.5267,0.555,0.1833,0.6333,1.0,0.9933,1.4633
+mem0,generic,mem0 PGVector,1000,3,0.7755,0.7733,0.78,0.0611,0.3389,1.0,1.1133,1.4967
+mem0,generic,mem0 PGVector,10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.28,1.7567
+mem0_exprindex_boundkey,custom,"mem0 + B-tree on payload->>'user_id', key still bound",1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.1967,0.25
+mem0_exprindex_boundkey,custom,"mem0 + B-tree on payload->>'user_id', key still bound",10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.22,0.2833
+mem0_exprindex_boundkey,custom,"mem0 + B-tree on payload->>'user_id', key still bound",100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.3367,0.4067
+mem0_exprindex_boundkey,custom,"mem0 + B-tree on payload->>'user_id', key still bound",1000,3,0.7833,0.7733,0.7967,0.0555,0.3278,0.9833,1.2967,2.0567
+mem0_exprindex_boundkey,custom,"mem0 + B-tree on payload->>'user_id', key still bound",10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.23,1.6167
+mem0_exprindex_boundkey,generic,"mem0 + B-tree on payload->>'user_id', key still bound",1,3,0.1,0.0833,0.1167,0.9,0.9,1.0,1.2733,1.9333
+mem0_exprindex_boundkey,generic,"mem0 + B-tree on payload->>'user_id', key still bound",10,3,0.0822,0.0767,0.0867,0.6722,1.0,1.0,1.14,1.5667
+mem0_exprindex_boundkey,generic,"mem0 + B-tree on payload->>'user_id', key still bound",100,3,0.5417,0.5267,0.555,0.1833,0.6333,1.0,1.03,1.48
+mem0_exprindex_boundkey,generic,"mem0 + B-tree on payload->>'user_id', key still bound",1000,3,0.7755,0.7733,0.78,0.0611,0.3389,1.0,1.15,1.4933
+mem0_exprindex_boundkey,generic,"mem0 + B-tree on payload->>'user_id', key still bound",10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.2167,1.57
+mem0_pr7607,custom,"mem0 + PR #7607 (B-tree, literal key, ef_search 64)",1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.1867,0.2633
+mem0_pr7607,custom,"mem0 + PR #7607 (B-tree, literal key, ef_search 64)",10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2,0.2633
+mem0_pr7607,custom,"mem0 + PR #7607 (B-tree, literal key, ef_search 64)",100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.29,0.4
+mem0_pr7607,custom,"mem0 + PR #7607 (B-tree, literal key, ef_search 64)",1000,3,0.8722,0.8583,0.8967,0.0111,0.2333,0.9667,1.48,2.2833
+mem0_pr7607,custom,"mem0 + PR #7607 (B-tree, literal key, ef_search 64)",10000,3,0.9406,0.9367,0.9433,0.0,0.0833,1.0,1.49,1.95
+mem0_pr7607,generic,"mem0 + PR #7607 (B-tree, literal key, ef_search 64)",1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.1467,0.23
+mem0_pr7607,generic,"mem0 + PR #7607 (B-tree, literal key, ef_search 64)",10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2,0.3067
+mem0_pr7607,generic,"mem0 + PR #7607 (B-tree, literal key, ef_search 64)",100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2533,0.33
+mem0_pr7607,generic,"mem0 + PR #7607 (B-tree, literal key, ef_search 64)",1000,3,1.0,1.0,1.0,0.0,0.0,0.0,0.79,0.9867
+mem0_pr7607,generic,"mem0 + PR #7607 (B-tree, literal key, ef_search 64)",10000,3,1.0,1.0,1.0,0.0,0.0,0.0,5.3833,6.9767
+vecs,custom,Supabase vecs,1,3,0.1,0.0833,0.1167,0.9,0.9,1.0,1.24,1.9267
+vecs,custom,Supabase vecs,10,3,0.0822,0.0767,0.0867,0.6722,1.0,1.0,1.18,2.71
+vecs,custom,Supabase vecs,100,3,0.5417,0.5267,0.555,0.1833,0.6333,1.0,1.8367,4.1
+vecs,custom,Supabase vecs,1000,3,0.7755,0.7733,0.78,0.0611,0.3389,1.0,1.2633,2.3467
+vecs,custom,Supabase vecs,10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.26,1.7933
+supabase_match_documents,custom,Supabase match_documents() (metadata @> filter),1,3,0.1889,0.1667,0.2167,0.8111,0.8111,0.8944,1.2467,49.9667
+supabase_match_documents,custom,Supabase match_documents() (metadata @> filter),10,3,0.0822,0.0767,0.0867,0.6722,1.0,1.0,1.0533,1.4333
+supabase_match_documents,custom,Supabase match_documents() (metadata @> filter),100,3,0.5417,0.5267,0.555,0.1833,0.6333,1.0,1.0433,1.4433
+supabase_match_documents,custom,Supabase match_documents() (metadata @> filter),1000,3,0.7755,0.7733,0.78,0.0611,0.3389,1.0,1.1767,1.4433
+supabase_match_documents,custom,Supabase match_documents() (metadata @> filter),10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.2467,1.5333
+supabase_match_documents,generic,Supabase match_documents() (metadata @> filter),1,3,0.1,0.0833,0.1167,0.9,0.9,1.0,1.3167,1.9567
+supabase_match_documents,generic,Supabase match_documents() (metadata @> filter),10,3,0.0822,0.0767,0.0867,0.6722,1.0,1.0,1.16,1.5633
+supabase_match_documents,generic,Supabase match_documents() (metadata @> filter),100,3,0.5417,0.5267,0.555,0.1833,0.6333,1.0,1.0567,1.48
+supabase_match_documents,generic,Supabase match_documents() (metadata @> filter),1000,3,0.7755,0.7733,0.78,0.0611,0.3389,1.0,1.2,1.5067
+supabase_match_documents,generic,Supabase match_documents() (metadata @> filter),10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.28,1.59
+supabase_match_documents_gin,custom,match_documents() + GIN jsonb_path_ops,1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.3233,0.4367
+supabase_match_documents_gin,custom,match_documents() + GIN jsonb_path_ops,10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.36,0.4333
+supabase_match_documents_gin,custom,match_documents() + GIN jsonb_path_ops,100,3,0.9845,0.97,0.9917,0.0056,0.0222,0.0333,0.46,0.6867
+supabase_match_documents_gin,custom,match_documents() + GIN jsonb_path_ops,1000,3,0.8933,0.8683,0.935,0.0167,0.1611,0.5,1.2933,1.98
+supabase_match_documents_gin,custom,match_documents() + GIN jsonb_path_ops,10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.3433,1.6433
+supabase_match_documents_gin,generic,match_documents() + GIN jsonb_path_ops,1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2333,0.33
+supabase_match_documents_gin,generic,match_documents() + GIN jsonb_path_ops,10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2633,0.3567
+supabase_match_documents_gin,generic,match_documents() + GIN jsonb_path_ops,100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.3633,0.4667
+supabase_match_documents_gin,generic,match_documents() + GIN jsonb_path_ops,1000,3,1.0,1.0,1.0,0.0,0.0,0.0,1.17,1.3667
+supabase_match_documents_gin,generic,match_documents() + GIN jsonb_path_ops,10000,3,1.0,1.0,1.0,0.0,0.0,0.0,8.63,10.5467
+langchainjs_n8n,custom,"langchainjs PGVectorStore / n8n node, HNSW added",1,3,0.1,0.0833,0.1167,0.9,0.9,1.0,1.25,1.93
+langchainjs_n8n,custom,"langchainjs PGVectorStore / n8n node, HNSW added",10,3,0.0822,0.0767,0.0867,0.6722,1.0,1.0,1.1467,1.7567
+langchainjs_n8n,custom,"langchainjs PGVectorStore / n8n node, HNSW added",100,3,0.5417,0.5267,0.555,0.1833,0.6333,1.0,1.04,1.5533
+langchainjs_n8n,custom,"langchainjs PGVectorStore / n8n node, HNSW added",1000,3,0.7755,0.7733,0.78,0.0611,0.3389,1.0,1.1567,1.6367
+langchainjs_n8n,custom,"langchainjs PGVectorStore / n8n node, HNSW added",10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.22,1.5367
+spring_ai,custom,Spring AI PgVectorStore,1,3,0.1,0.0833,0.1167,0.9,0.9,1.0,1.3567,1.9767
+spring_ai,custom,Spring AI PgVectorStore,10,3,0.0822,0.0767,0.0867,0.6722,1.0,1.0,1.1733,1.5533
+spring_ai,custom,Spring AI PgVectorStore,100,3,0.5417,0.5267,0.555,0.1833,0.6333,1.0,1.0967,1.5533
+spring_ai,custom,Spring AI PgVectorStore,1000,3,0.7755,0.7733,0.78,0.0611,0.3389,1.0,1.2167,1.6267
+spring_ai,custom,Spring AI PgVectorStore,10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.2033,1.5133
+semantic_kernel_py,custom,"Semantic Kernel (Python), typed tenant column",1,3,1.0,1.0,1.0,0.0,0.0,0.0,29.6333,45.95
+semantic_kernel_py,custom,"Semantic Kernel (Python), typed tenant column",10,3,1.0,1.0,1.0,0.0,0.0,0.0,34.6,43.1733
+semantic_kernel_py,custom,"Semantic Kernel (Python), typed tenant column",100,3,1.0,1.0,1.0,0.0,0.0,0.0,34.17,43.26
+semantic_kernel_py,custom,"Semantic Kernel (Python), typed tenant column",1000,3,0.7755,0.7733,0.78,0.0611,0.3389,1.0,1.1833,1.8533
+semantic_kernel_py,custom,"Semantic Kernel (Python), typed tenant column",10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.21,1.4933
+semantic_kernel_py,generic,"Semantic Kernel (Python), typed tenant column",1,3,0.1,0.0833,0.1167,0.9,0.9,1.0,1.2533,1.86
+semantic_kernel_py,generic,"Semantic Kernel (Python), typed tenant column",10,3,0.0822,0.0767,0.0867,0.6722,1.0,1.0,1.1233,1.56
+semantic_kernel_py,generic,"Semantic Kernel (Python), typed tenant column",100,3,0.5417,0.5267,0.555,0.1833,0.6333,1.0,0.9967,1.4267
+semantic_kernel_py,generic,"Semantic Kernel (Python), typed tenant column",1000,3,0.7755,0.7733,0.78,0.0611,0.3389,1.0,1.1667,1.47
+semantic_kernel_py,generic,"Semantic Kernel (Python), typed tenant column",10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.2567,1.58
+btree_planner,custom,"+ B-tree on tenant_id, planner picks",1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.1667,0.2467
+btree_planner,custom,"+ B-tree on tenant_id, planner picks",10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.1933,0.2733
+btree_planner,custom,"+ B-tree on tenant_id, planner picks",100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2767,0.3567
+btree_planner,custom,"+ B-tree on tenant_id, planner picks",1000,3,1.0,1.0,1.0,0.0,0.0,0.0,0.8033,0.9567
+btree_planner,custom,"+ B-tree on tenant_id, planner picks",10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.2867,2.1333
+btree_planner,generic,"+ B-tree on tenant_id, planner picks",1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.1467,0.22
+btree_planner,generic,"+ B-tree on tenant_id, planner picks",10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.1767,0.28
+btree_planner,generic,"+ B-tree on tenant_id, planner picks",100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.25,0.3233
+btree_planner,generic,"+ B-tree on tenant_id, planner picks",1000,3,1.0,1.0,1.0,0.0,0.0,0.0,0.79,0.9133
+btree_planner,generic,"+ B-tree on tenant_id, planner picks",10000,3,1.0,1.0,1.0,0.0,0.0,0.0,5.4233,6.38
+btree_planner_relaxed,custom,"+ B-tree, planner picks, relaxed_order",1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.1967,0.2833
+btree_planner_relaxed,custom,"+ B-tree, planner picks, relaxed_order",10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2167,0.33
+btree_planner_relaxed,custom,"+ B-tree, planner picks, relaxed_order",100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2933,0.4033
+btree_planner_relaxed,custom,"+ B-tree, planner picks, relaxed_order",1000,3,1.0,1.0,1.0,0.0,0.0,0.0,0.7967,0.9633
+btree_planner_relaxed,custom,"+ B-tree, planner picks, relaxed_order",10000,3,0.9339,0.9333,0.935,0.0,0.0,1.0,1.3633,3.87
+btree_planner_relaxed,generic,"+ B-tree, planner picks, relaxed_order",1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.1833,0.3567
+btree_planner_relaxed,generic,"+ B-tree, planner picks, relaxed_order",10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2133,0.3233
+btree_planner_relaxed,generic,"+ B-tree, planner picks, relaxed_order",100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.31,0.4033
+btree_planner_relaxed,generic,"+ B-tree, planner picks, relaxed_order",1000,3,1.0,1.0,1.0,0.0,0.0,0.0,0.8733,1.1933
+btree_planner_relaxed,generic,"+ B-tree, planner picks, relaxed_order",10000,3,1.0,1.0,1.0,0.0,0.0,0.0,5.4833,6.96
+btree_exact,custom,"+ B-tree, exact (ORDER BY dist + 0)",1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.1667,0.23
+btree_exact,custom,"+ B-tree, exact (ORDER BY dist + 0)",10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2033,0.29
+btree_exact,custom,"+ B-tree, exact (ORDER BY dist + 0)",100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.26,0.3233
+btree_exact,custom,"+ B-tree, exact (ORDER BY dist + 0)",1000,3,1.0,1.0,1.0,0.0,0.0,0.0,0.7933,1.02
+btree_exact,custom,"+ B-tree, exact (ORDER BY dist + 0)",10000,3,1.0,1.0,1.0,0.0,0.0,0.0,5.31,6.32
+btree_exact,generic,"+ B-tree, exact (ORDER BY dist + 0)",1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.15,0.4233
+btree_exact,generic,"+ B-tree, exact (ORDER BY dist + 0)",10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.1733,0.23
+btree_exact,generic,"+ B-tree, exact (ORDER BY dist + 0)",100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2533,0.34
+btree_exact,generic,"+ B-tree, exact (ORDER BY dist + 0)",1000,3,1.0,1.0,1.0,0.0,0.0,0.0,0.7933,0.96
+btree_exact,generic,"+ B-tree, exact (ORDER BY dist + 0)",10000,3,1.0,1.0,1.0,0.0,0.0,0.0,5.5067,7.3033
+jsonb_expr_index,custom,JSONB filter + expression B-tree,1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2,0.28
+jsonb_expr_index,custom,JSONB filter + expression B-tree,10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2,0.2867
+jsonb_expr_index,custom,JSONB filter + expression B-tree,100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2733,0.38
+jsonb_expr_index,custom,JSONB filter + expression B-tree,1000,3,0.7755,0.7733,0.78,0.0611,0.3389,0.9833,1.23,1.87
+jsonb_expr_index,custom,JSONB filter + expression B-tree,10000,3,0.88,0.8767,0.8833,0.0167,0.1111,1.0,1.2267,1.5467
+jsonb_expr_index,generic,JSONB filter + expression B-tree,1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2,0.31
+jsonb_expr_index,generic,JSONB filter + expression B-tree,10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.21,0.2867
+jsonb_expr_index,generic,JSONB filter + expression B-tree,100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2933,0.39
+jsonb_expr_index,generic,JSONB filter + expression B-tree,1000,3,1.0,1.0,1.0,0.0,0.0,0.0,0.8567,1.12
+jsonb_expr_index,generic,JSONB filter + expression B-tree,10000,3,1.0,1.0,1.0,0.0,0.0,0.0,5.68,7.4033
+part16_default,custom,"16 hash partitions, HNSW each",1,3,1.0,1.0,1.0,0.0,0.0,0.0,1.46,5.7433
+part16_default,custom,"16 hash partitions, HNSW each",10,3,1.0,1.0,1.0,0.0,0.0,0.0,1.6067,5.5933
+part16_default,custom,"16 hash partitions, HNSW each",100,3,0.905,0.8567,0.94,0.0444,0.1222,0.4333,1.1533,2.9633
+part16_default,custom,"16 hash partitions, HNSW each",1000,3,0.9761,0.9533,0.9883,0.0111,0.0611,1.0,0.6933,2.9767
+part16_default,custom,"16 hash partitions, HNSW each",10000,3,0.9628,0.9617,0.965,0.0,0.0167,1.0,1.1,1.88
+part16_default,generic,"16 hash partitions, HNSW each",1,3,0.2611,0.2333,0.2833,0.7389,0.7389,1.0,0.9933,2.89
+part16_default,generic,"16 hash partitions, HNSW each",10,3,0.3211,0.3083,0.33,0.1778,0.9389,1.0,0.89,1.74
+part16_default,generic,"16 hash partitions, HNSW each",100,3,0.8883,0.84,0.9233,0.0444,0.1722,1.0,0.72,1.2467
+part16_default,generic,"16 hash partitions, HNSW each",1000,3,0.9761,0.9533,0.9883,0.0111,0.0611,1.0,0.79,1.27
+part16_default,generic,"16 hash partitions, HNSW each",10000,3,0.9628,0.9617,0.965,0.0,0.0167,1.0,1.2,1.41
+part16_relaxed,custom,"16 hash partitions, relaxed_order",1,3,1.0,1.0,1.0,0.0,0.0,0.0,1.5,5.5433
+part16_relaxed,custom,"16 hash partitions, relaxed_order",10,3,1.0,1.0,1.0,0.0,0.0,0.0,1.5133,5.2867
+part16_relaxed,custom,"16 hash partitions, relaxed_order",100,3,0.9994,0.9983,1.0,0.0,0.0,0.4333,1.0667,2.31
+part16_relaxed,custom,"16 hash partitions, relaxed_order",1000,3,0.9978,0.9967,0.9983,0.0,0.0,1.0,0.69,1.29
+part16_relaxed,custom,"16 hash partitions, relaxed_order",10000,3,0.9694,0.9683,0.9717,0.0,0.0,1.0,1.0567,1.2633
+part16_relaxed,generic,"16 hash partitions, relaxed_order",1,3,1.0,1.0,1.0,0.0,0.0,1.0,21.02,55.2267
+part16_relaxed,generic,"16 hash partitions, relaxed_order",10,3,1.0,1.0,1.0,0.0,0.0,1.0,15.03,50.9067
+part16_relaxed,generic,"16 hash partitions, relaxed_order",100,3,0.9978,0.9967,0.9983,0.0,0.0,1.0,0.79,2.0567
+part16_relaxed,generic,"16 hash partitions, relaxed_order",1000,3,0.9978,0.9967,0.9983,0.0,0.0,1.0,0.89,1.5633
+part16_relaxed,generic,"16 hash partitions, relaxed_order",10000,3,0.9694,0.9683,0.9717,0.0,0.0,1.0,1.38,1.9567
