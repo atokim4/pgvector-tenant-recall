@@ -111,6 +111,98 @@ the key for exactly this reason, and with it every tenant size gets 1.00.
 Filtering never leaked rows from other tenants. Every strategy returned only the
 tenant's own rows; the failure mode is always missing rows, never wrong ones.
 
+## Real embeddings: Wikipedia + MiniLM
+
+Synthetic vectors were the obvious weak spot, so the same harness also runs on real text:
+Simple English Wikipedia paragraphs (CC BY-SA) embedded with all-MiniLM-L6-v2 (384 dims).
+Each tenant owns whole articles, and each query is "What is <title>?" for one of the
+tenant's own articles. Numbers below come from `results-real/summary_by_strategy.csv`
+(3 HNSW builds, every strategy, custom and generic plans).
+
+The table is smaller: 50,000 rows and 2,102 tenants instead of 200,000, because embedding
+200k paragraphs on this 4 GB box ran into swap. The probe tenants are 30 / 30 / 30 / 10 / 2
+tenants of 1 / 10 / 100 / 1,000 / 10,000 rows, still 60 queries per size. Unfiltered HNSW
+recall@10 is 0.91 to 0.92, the same as the synthetic table.
+
+| JSONB filter, defaults | 1 row | 10 rows | 100 rows | 1,000 rows | 10,000 rows |
+|---|---:|---:|---:|---:|---:|
+| synthetic, 200k rows | 0.10 | 0.08 | 0.54 | 0.78 | 0.88 |
+| Wikipedia, 50k rows | 0.87 | 0.63 | 0.23 | 0.22 | 0.76 |
+
+The failure moves to different tenants:
+
+- **The smallest tenants do better on real text.** A 1-row tenant owns one paragraph about
+  its article, and the query is that article's title, so the paragraph is often inside the
+  40 global nearest neighbours anyway. Still, 13% of those searches came back empty and 87%
+  of the 10-row searches came back short. A user asking about something a little off their
+  document's title would land closer to the synthetic number.
+- **Mid-size tenants do much worse.** A 100- or 1,000-row tenant owns a mix of articles.
+  The query lands in a topic where Wikipedia has many paragraphs from other tenants, and
+  those fill the 40 candidates: recall 0.23 and 0.22, short results for 93% and 100% of
+  queries. On real text, the planner's custom plan doesn't help here either: it already
+  uses HNSW for 100-row tenants (0.24).
+
+What did not change is which fixes work:
+
+| fix, generic plan | 1 row | 10 rows | 100 rows | 1,000 rows | 10,000 rows |
+|---|---:|---:|---:|---:|---:|
+| none (HNSW defaults) | 0.87 | 0.63 | 0.23 | 0.22 | 0.76 |
+| `iterative_scan = relaxed_order` | 1.00 | 0.95 | 0.97 | 0.96 | 0.89 |
+| B-tree on tenant key | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 (8.6 ms) |
+| mem0 PR #7607 shape (literal key + expression index) | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 |
+
+The 9 framework replays that put the tenant in JSON metadata land on the "none" row again
+(Supabase `match_documents()` gets 0.90 instead of 0.87 for 1-row tenants in its first, custom-planned
+calls), for the same reason as before: identical plans. Two rows don't carry over and I would not read them
+across: on the 4x smaller table, `ef_search = 1000` and the 16 hash partitions both made
+the planner pick a sequential scan (0% of queries via HNSW), so they score 1.00 here for
+the same reason `ef_search = 1000` did in my first synthetic run.
+
+![Real embeddings, recall by strategy](results-real/recall-heatmap.png)
+
+## Tenant isolation by RLS policy
+
+Plenty of apps (most Supabase apps) don't filter by tenant in the query at all. They set
+the user in a session setting and let a Row Level Security policy add the filter. The
+planner sees that filter differently, so the bench runs the search with no `WHERE`, as a
+role without `BYPASSRLS`, under two policy spellings:
+
+- `USING (tenant_id = current_setting('app.tenant_id')::int)`
+- `USING (tenant_id = (SELECT current_setting('app.tenant_id')::int))`, the scalar-subquery
+  wrap that Supabase's RLS performance guide recommends for `auth.uid()`
+
+each with and without a B-tree on `tenant_id`, and in three plan modes. The new one is
+`auto`: a real named prepared statement with the server's default `plan_cache_mode`, so
+Postgres makes the custom-or-generic choice itself, as it does behind psycopg, JDBC or
+asyncpg. Numbers from `results-rls/summary_by_strategy.csv` (synthetic, 200k rows, 3 builds):
+
+| policy, index | plan | 1 row | 10 rows | 100 rows | 10,000 rows | 1-row queries empty |
+|---|---|---:|---:|---:|---:|---:|
+| `(SELECT ...)`, no B-tree | plain query | 0.11 | 0.09 | 0.54 | 0.88 | 89% |
+| `(SELECT ...)`, no B-tree | prepared (auto) | 0.11 | 0.09 | 0.54 | 0.88 | 89% |
+| `current_setting()`, no B-tree | plain query | 1.00 (62 ms) | 1.00 | 1.00 | 0.88 | 0% |
+| `current_setting()`, no B-tree | prepared (auto) | 0.19 | 0.09 | 0.54 | 0.88 | 81% |
+| `(SELECT ...)`, no B-tree, relaxed_order | prepared (auto) | 0.48 (52 ms) | 0.60 | 1.00 | 0.93 | 52% |
+| either spelling, B-tree on tenant_id | any of the three | 1.00 (0.3 ms) | 1.00 | 1.00 | 1.00 (5.3 ms) | 0% |
+
+`scripts/rls_plan_check.py` shows why (output in `results-rls/plan-check.txt`). With
+`current_setting()` called directly, the planner evaluates it while planning, even for a
+generic plan: it estimates 27 rows for a 1-row tenant and 19,273 for a 19,085-row one.
+Without an index, what flips the prepared plan to HNSW is the `LIMIT $2` parameter; the
+same generic plan with `LIMIT 10` written into the SQL goes back to a sequential scan.
+With the `(SELECT ...)` wrap the value is an InitPlan, unknown at planning time, and every
+tenant gets the same 111-row guess. On the 200k table that guess sends everyone through
+HNSW, prepared or not. On the 50k Wikipedia table (`results-real/`) the same guess still
+priced a sequential scan, so plain queries were right (1.00, 17 ms) and only prepared ones
+failed (0.87 / 0.63 / 0.23 / 0.22 / 0.76).
+
+So the scalar-subquery wrap is a good idea for the per-row cost it was meant to fix, and on
+its own it hides the tenant from the planner. The index on the policy column, which the
+same Supabase guide also asks for, is what makes it safe: 1.00 for every tenant, every
+spelling and every plan mode, on both datasets.
+
+![RLS policies, recall by tenant size](results-rls/recall-rls.png)
+
 ## The frameworks
 
 Each store's search query was copied from its current source and replayed on the same
@@ -227,15 +319,25 @@ scripts/local-pg.sh start
 .venv/bin/pytest
 ```
 
+The RLS run and its plan check:
+
+```bash
+.venv/bin/python -m ptr.bench --builds 3 --out results-rls --plan-cache custom generic auto \
+  --only hnsw_default iter_relaxed btree_planner rls_direct_noindex rls_initplan_noindex \
+  rls_initplan_relaxed_noindex rls_direct rls_initplan rls_initplan_relaxed
+.venv/bin/python scripts/rls_plan_check.py > results-rls/plan-check.txt
+```
+
 Useful flags: `--only hnsw_default btree_planner`, `--plan-cache generic`,
 `--builds 1`, `--rows 500000`, `--dim 384`, `--tenant-offset 0`. `PTR_DSN` sets the
 connection string (see `.env.example`).
 
 `--dataset real` swaps the synthetic vectors for Simple English Wikipedia paragraphs embedded with
 all-MiniLM-L6-v2 (`pip install -e '.[real]'`, then put the parquet file from `ptr/realdata.py` in
-`--cache`). It is experimental: the tenant layout is unit tested, but embedding 200k chunks ran out
-of memory on my 4 GB box, so every number in this README comes from the synthetic data. `scripts/check_langchain_v2.py`
-needs `pip install -e '.[langchain]'`.
+`--cache`). It reads only a seeded sample of articles and embeds in parts of 4,096 that are saved
+as they finish, so a stopped run resumes. `--dataset real --rows 50000 --builds 3` took 21 minutes
+to embed and 12 to benchmark on 2 vCPU. `scripts/check_langchain_v2.py` needs
+`pip install -e '.[langchain]'`.
 
 ## Output
 
@@ -244,6 +346,8 @@ needs `pip install -e '.[langchain]'`.
 - `results/summary.csv`: the same per build, with the plan mix.
 - `results/queries.csv` (not committed, about 4 MB): every query with its plan.
 - `results/run.json`: versions, dataset config, build times, sizes, sanity checks.
+- `results-real/`: the same files for the Wikipedia + MiniLM run (50k rows).
+- `results-rls/`: the RLS run (synthetic, 200k rows), plus `plan-check.txt`.
 
 ## Layout
 
@@ -253,10 +357,12 @@ ptr/metrics.py     recall@k, short/empty results, percentiles
 ptr/strategies.py  index layouts, settings and SQL shapes under test
 ptr/frameworks.py  framework query replays, with the source file and lines of each
 ptr/realdata.py    the Wikipedia + MiniLM dataset
+ptr/rls.py         RLS policy strategies (role, policy DDL, per-query tenant setting)
 ptr/db.py          schema, binary COPY load, index builds
 ptr/bench.py       the runner
 ptr/charts.py      PNG charts
-scripts/           throwaway Postgres (local-pg.sh), langchain-postgres end-to-end check
+scripts/           throwaway Postgres (local-pg.sh), langchain-postgres end-to-end check,
+                   rls_plan_check.py (planner estimates per policy spelling)
 tests/             pytest
 ```
 

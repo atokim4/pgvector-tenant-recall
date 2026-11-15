@@ -1,0 +1,34 @@
+
+== policy current_setting(), B-tree on tenant_id
+  tenant     1 (     1 rows)  custom             Index Scan(items_tenant) est 27 rows
+  tenant     1 (     1 rows)  generic            Index Scan(items_tenant) est 27 rows
+  tenant     1 (     1 rows)  generic, LIMIT 10  Index Scan(items_tenant) est 27 rows
+  tenant   116 ( 19085 rows)  custom             Index Scan(items_hnsw) est 19273 rows
+  tenant   116 ( 19085 rows)  generic            Index Scan(items_tenant) est 19273 rows
+  tenant   116 ( 19085 rows)  generic, LIMIT 10  Index Scan(items_hnsw) est 19273 rows
+
+== policy (SELECT current_setting()), B-tree on tenant_id
+  tenant     1 (     1 rows)  custom             Index Scan(items_tenant) est 111 rows
+  tenant     1 (     1 rows)  generic            Index Scan(items_tenant) est 111 rows
+  tenant     1 (     1 rows)  generic, LIMIT 10  Index Scan(items_tenant) est 111 rows
+  tenant   116 ( 19085 rows)  custom             Index Scan(items_tenant) est 111 rows
+  tenant   116 ( 19085 rows)  generic            Index Scan(items_tenant) est 111 rows
+  tenant   116 ( 19085 rows)  generic, LIMIT 10  Index Scan(items_tenant) est 111 rows
+
+== policy current_setting(), no B-tree
+  tenant     1 (     1 rows)  custom             Seq Scan(-) est 11 rows
+  tenant     1 (     1 rows)  generic            Index Scan(items_hnsw) est 27 rows
+  tenant     1 (     1 rows)  generic, LIMIT 10  Seq Scan(-) est 11 rows
+  tenant   116 ( 19085 rows)  custom             Index Scan(items_hnsw) est 19273 rows
+  tenant   116 ( 19085 rows)  generic            Index Scan(items_hnsw) est 19273 rows
+  tenant   116 ( 19085 rows)  generic, LIMIT 10  Index Scan(items_hnsw) est 19273 rows
+
+== policy (SELECT current_setting()), no B-tree
+  tenant     1 (     1 rows)  custom             Index Scan(items_hnsw) est 111 rows
+  tenant     1 (     1 rows)  generic            Index Scan(items_hnsw) est 111 rows
+  tenant     1 (     1 rows)  generic, LIMIT 10  Index Scan(items_hnsw) est 111 rows
+  tenant   116 ( 19085 rows)  custom             Index Scan(items_hnsw) est 111 rows
+  tenant   116 ( 19085 rows)  generic            Index Scan(items_hnsw) est 111 rows
+  tenant   116 ( 19085 rows)  generic, LIMIT 10  Index Scan(items_hnsw) est 111 rows
+
+(rolled back: policy ptr_tenant and the B-tree are as the benchmark left them)

@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.colors import LinearSegmentedColormap  # noqa: E402
 
 from .frameworks import STEADY_MODE  # noqa: E402
+from .rls import RLS_STRATEGIES  # noqa: E402
 
 SURFACE = "#fcfcfb"
 TEXT = "#0b0b0b"
@@ -120,7 +121,7 @@ def recall_heatmap(rows: list[dict], out: Path, title: str, panels: dict[str, st
     if panels:
         rows = [{**r, "plan_cache": "steady"} for r in rows if panels.get(r["strategy"]) == r["plan_cache"]]
         labels = {n: f"{labels[n]}{'  [prepared]' if panels[n] == 'generic' else ''}" for n in names}
-    modes = [m for m in ("custom", "generic", "steady") if any(r["plan_cache"] == m for r in rows)]
+    modes = [m for m in ("custom", "generic", "auto", "steady") if any(r["plan_cache"] == m for r in rows)]
     cmap = LinearSegmentedColormap.from_list("blues", BLUES)
     fig, axes = plt.subplots(
         1,
@@ -155,7 +156,8 @@ def recall_heatmap(rows: list[dict], out: Path, title: str, panels: dict[str, st
         ax.set_xlabel("tenant size (rows)", color=TEXT_2, fontsize=9)
         panel = {
             "custom": "custom plan per query",
-            "generic": "generic plan (prepared statement)",
+            "generic": "generic plan (forced)",
+            "auto": "prepared statement, server decides",
             "steady": "the plan each store's driver settles on",
         }[mode]
         ax.set_title(panel, color=TEXT, fontsize=11, loc="left")
@@ -174,7 +176,8 @@ def main(argv: list[str] | None = None) -> int:
         if all(n in present for n, _, _ in series):
             recall_lines(rows, folder / name, title, series)
     fw = {r["strategy"] for r in rows if r["strategy"] in STEADY_MODE}
-    base = [r for r in rows if r["strategy"] not in fw]
+    rls = {s.name for s in RLS_STRATEGIES} & present
+    base = [r for r in rows if r["strategy"] not in fw | rls]
     builds = max(int(r["builds"]) for r in rows)
     note = f"(mean of {builds} HNSW build{'s' if builds > 1 else ''})"
     if base:
@@ -185,6 +188,12 @@ def main(argv: list[str] | None = None) -> int:
             folder / "recall-frameworks.png",
             f"Framework query shapes, recall@10 by tenant size {note}",
             panels={n: STEADY_MODE[n] for n in fw},
+        )
+    if rls:
+        recall_heatmap(
+            [r for r in rows if r["strategy"] in rls],
+            folder / "recall-rls.png",
+            f"Tenant isolation by RLS policy, recall@10 by tenant size {note}",
         )
     print(f"wrote charts to {folder}")
     return 0

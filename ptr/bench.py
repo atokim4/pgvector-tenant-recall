@@ -21,7 +21,10 @@ from . import db
 from .dataset import Dataset, DatasetConfig, exact_topk, generate
 from .frameworks import FRAMEWORK_STRATEGIES
 from .metrics import QueryScore, percentile, score_query, summarize
+from .rls import RLS_STRATEGIES
 from .strategies import (
+    ALL_PLAN_CACHE_MODES,
+    AUTO,
     GENERIC,
     HNSW_BTREE,
     LAYOUT_ORDER,
@@ -31,7 +34,7 @@ from .strategies import (
     Strategy,
 )
 
-ALL_STRATEGIES = STRATEGIES + FRAMEWORK_STRATEGIES
+ALL_STRATEGIES = STRATEGIES + FRAMEWORK_STRATEGIES + RLS_STRATEGIES
 
 QUERY_FIELDS = [
     "build",
@@ -155,7 +158,7 @@ def compact_plan(root: dict) -> tuple[str, str]:
     return plan, access
 
 
-def plan_summary(conn: psycopg.Connection, sql: str, params: dict | None) -> tuple[str, str]:
+def plan_summary(conn: psycopg.Connection | psycopg.ClientCursor, sql: str, params: dict | None) -> tuple[str, str]:
     statement = sql if params is None else "EXPLAIN (FORMAT JSON) " + sql
     (doc,) = conn.execute(statement, params).fetchone()
     return compact_plan(doc[0]["Plan"])
@@ -250,31 +253,55 @@ def run_strategy(
         settings["plan_cache_mode"] = "force_generic_plan"
     for key, value in settings.items():
         conn.execute("SELECT set_config(%s, %s, false)", (key, value))
-    # under force_generic_plan every tenant runs the same plan, so one EXPLAIN covers them all
-    generic_plan = (
-        plan_summary(conn, "EXPLAIN (GENERIC_PLAN, FORMAT JSON) " + strat.dollar_sql(), None)
-        if plan_cache == GENERIC
-        else None
-    )
+    if strat.role:
+        conn.execute(f"SET ROLE {strat.role}")
     sql = strat.sql()
-    nested = NestedPlans(conn) if strat.setup else None
+    # cur runs the searches; in auto mode it is a client-side-binding cursor that
+    # EXECUTEs one named prepared statement, so the server's plan cache decides
+    cur: psycopg.Connection | psycopg.ClientCursor = conn
+    if plan_cache == AUTO:
+        conn.execute(f"PREPARE ptr_search AS {strat.dollar_sql()}")
+        sql = "EXECUTE ptr_search(" + ", ".join(f"%({n})s" for n in strat.param_names()) + ")"
+        cur = psycopg.ClientCursor(conn)
+
+    def bind_tenant(tenant: int) -> None:
+        if strat.tenant_setting:
+            conn.execute("SELECT set_config(%s, %s, false)", (strat.tenant_setting, str(tenant)))
+
+    def generic_explain() -> tuple[str, str]:
+        return plan_summary(conn, "EXPLAIN (GENERIC_PLAN, FORMAT JSON) " + strat.dollar_sql(), None)
+
+    # under force_generic_plan every tenant runs the same plan, so one EXPLAIN covers
+    # them all, unless the plan can depend on a per-tenant setting (RLS)
+    generic_plan = None
+    if plan_cache == GENERIC and not strat.tenant_setting:
+        generic_plan = generic_explain()
+    nested = NestedPlans(conn) if strat.function_call else None
     per_query: list[dict] = []
     scores: dict[int, list[QueryScore]] = {}
     times: dict[int, list[float]] = {}
     plans: dict[int, list[tuple[str, str]]] = {}
-    # warm-up: one untimed query per bucket
+    # warm-up: one untimed query per bucket (in auto mode these are the custom plans
+    # the server compares a generic plan against)
     for bucket in sorted(ds.probe_tenants):
         _, tenant, q = next(x for x in ds.queries if x[0] == bucket)
-        conn.execute(sql, params_for(tenant, q, k)).fetchall()
+        bind_tenant(tenant)
+        cur.execute(sql, params_for(tenant, q, k)).fetchall()
     if nested:
         nested.take()
     for idx, (bucket, tenant, q) in enumerate(ds.queries):
         params = params_for(tenant, q, k)
+        bind_tenant(tenant)
         # custom plans depend on the tenant id, so every query gets its own EXPLAIN
         if not nested:
-            plan, access = generic_plan or plan_summary(conn, sql, params)
+            if generic_plan:
+                plan, access = generic_plan
+            elif plan_cache == GENERIC:
+                plan, access = generic_explain()
+            else:
+                plan, access = plan_summary(cur, sql, params)
         start = time.perf_counter()
-        rows = conn.execute(sql, params).fetchall()
+        rows = cur.execute(sql, params).fetchall()
         ms = (time.perf_counter() - start) * 1000
         if nested:
             plan, access = nested.take()
@@ -383,8 +410,9 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument(
         "--plan-cache",
         nargs="+",
-        choices=PLAN_CACHE_MODES,
+        choices=ALL_PLAN_CACHE_MODES,
         default=list(PLAN_CACHE_MODES),
+        help="auto runs only for strategies that list it (the RLS ones); see ptr/strategies.py",
     )
     args = ap.parse_args(argv)
 
@@ -392,9 +420,9 @@ def main(argv: list[str] | None = None) -> int:
         ap.error("--builds and -k must be at least 1")
     t0 = time.perf_counter()
     if args.dataset == "real":
-        from .realdata import RealConfig, build
+        from .realdata import RealConfig, build, probe_buckets_for
 
-        real_cfg = RealConfig(rows=args.rows)
+        real_cfg = RealConfig(rows=args.rows, probe_buckets=probe_buckets_for(args.rows))
         ds = build(real_cfg, args.cache)
         cfg = ds.config
     else:

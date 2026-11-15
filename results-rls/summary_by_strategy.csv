@@ -1,0 +1,121 @@
+strategy,plan_cache,label,bucket,builds,mean_recall,recall_low,recall_high,zero_share,short_share,hnsw_share,p50_ms,p95_ms
+hnsw_default,custom,"HNSW, defaults (ef_search 40)",1,3,1.0,1.0,1.0,0.0,0.0,0.0,45.63,55.8633
+hnsw_default,custom,"HNSW, defaults (ef_search 40)",10,3,1.0,1.0,1.0,0.0,0.0,0.0,42.93,57.44
+hnsw_default,custom,"HNSW, defaults (ef_search 40)",100,3,1.0,1.0,1.0,0.0,0.0,0.0,42.0767,57.0933
+hnsw_default,custom,"HNSW, defaults (ef_search 40)",1000,3,0.7672,0.7283,0.79,0.0833,0.35,1.0,1.2233,2.6367
+hnsw_default,custom,"HNSW, defaults (ef_search 40)",10000,3,0.8811,0.8783,0.8833,0.0167,0.1056,1.0,1.1933,1.49
+hnsw_default,generic,"HNSW, defaults (ef_search 40)",1,3,0.1056,0.1,0.1167,0.8944,0.8944,1.0,1.23,2.28
+hnsw_default,generic,"HNSW, defaults (ef_search 40)",10,3,0.0866,0.0833,0.0883,0.6611,1.0,1.0,1.75,3.5133
+hnsw_default,generic,"HNSW, defaults (ef_search 40)",100,3,0.5394,0.5217,0.5583,0.1778,0.6389,1.0,1.5433,4.0567
+hnsw_default,generic,"HNSW, defaults (ef_search 40)",1000,3,0.7672,0.7283,0.79,0.0833,0.35,1.0,1.7467,2.53
+hnsw_default,generic,"HNSW, defaults (ef_search 40)",10000,3,0.8811,0.8783,0.8833,0.0167,0.1056,1.0,1.2633,3.2167
+iter_relaxed,custom,iterative_scan relaxed_order,1,3,1.0,1.0,1.0,0.0,0.0,0.0,41.87,56.59
+iter_relaxed,custom,iterative_scan relaxed_order,10,3,1.0,1.0,1.0,0.0,0.0,0.0,42.2633,52.7033
+iter_relaxed,custom,iterative_scan relaxed_order,100,3,1.0,1.0,1.0,0.0,0.0,0.0,42.2333,55.5067
+iter_relaxed,custom,iterative_scan relaxed_order,1000,3,0.9817,0.98,0.9833,0.0,0.0,1.0,1.3167,7.63
+iter_relaxed,custom,iterative_scan relaxed_order,10000,3,0.9345,0.93,0.9367,0.0,0.0,1.0,1.28,2.9467
+iter_relaxed,generic,iterative_scan relaxed_order,1,3,0.4834,0.4667,0.5167,0.5166,0.5166,1.0,50.57,62.57
+iter_relaxed,generic,iterative_scan relaxed_order,10,3,0.5961,0.59,0.6017,0.0,0.7444,1.0,49.8667,64.26
+iter_relaxed,generic,iterative_scan relaxed_order,100,3,0.9978,0.9967,1.0,0.0,0.0,1.0,1.82,22.9433
+iter_relaxed,generic,iterative_scan relaxed_order,1000,3,0.9817,0.98,0.9833,0.0,0.0,1.0,1.6733,7.7667
+iter_relaxed,generic,iterative_scan relaxed_order,10000,3,0.9345,0.93,0.9367,0.0,0.0,1.0,1.3533,4.5933
+rls_direct_noindex,custom,"RLS current_setting(), no B-tree",1,3,1.0,1.0,1.0,0.0,0.0,0.0,61.7833,76.4567
+rls_direct_noindex,custom,"RLS current_setting(), no B-tree",10,3,1.0,1.0,1.0,0.0,0.0,0.0,57.9667,79.8467
+rls_direct_noindex,custom,"RLS current_setting(), no B-tree",100,3,1.0,1.0,1.0,0.0,0.0,0.0,57.7233,76.3667
+rls_direct_noindex,custom,"RLS current_setting(), no B-tree",1000,3,0.7672,0.7283,0.79,0.0833,0.35,1.0,1.2,2.1367
+rls_direct_noindex,custom,"RLS current_setting(), no B-tree",10000,3,0.8811,0.8783,0.8833,0.0167,0.1056,1.0,1.1833,1.5267
+rls_direct_noindex,generic,"RLS current_setting(), no B-tree",1,3,0.1056,0.1,0.1167,0.8944,0.8944,1.0,1.2433,2.0167
+rls_direct_noindex,generic,"RLS current_setting(), no B-tree",10,3,0.0866,0.0833,0.0883,0.6611,1.0,1.0,1.1233,1.62
+rls_direct_noindex,generic,"RLS current_setting(), no B-tree",100,3,0.5394,0.5217,0.5583,0.1778,0.6389,1.0,1.0333,1.5567
+rls_direct_noindex,generic,"RLS current_setting(), no B-tree",1000,3,0.7672,0.7283,0.79,0.0833,0.35,1.0,1.1367,1.4967
+rls_direct_noindex,generic,"RLS current_setting(), no B-tree",10000,3,0.8811,0.8783,0.8833,0.0167,0.1056,1.0,1.2,1.76
+rls_direct_noindex,auto,"RLS current_setting(), no B-tree",1,3,0.1944,0.1833,0.2,0.8056,0.8056,0.8833,1.42,58.8333
+rls_direct_noindex,auto,"RLS current_setting(), no B-tree",10,3,0.0866,0.0833,0.0883,0.6611,1.0,1.0,1.2167,1.6067
+rls_direct_noindex,auto,"RLS current_setting(), no B-tree",100,3,0.5394,0.5217,0.5583,0.1778,0.6389,1.0,1.1633,1.7533
+rls_direct_noindex,auto,"RLS current_setting(), no B-tree",1000,3,0.7672,0.7283,0.79,0.0833,0.35,1.0,1.31,1.92
+rls_direct_noindex,auto,"RLS current_setting(), no B-tree",10000,3,0.8811,0.8783,0.8833,0.0167,0.1056,1.0,1.2767,1.5567
+rls_initplan_noindex,custom,"RLS (SELECT current_setting()), no B-tree",1,3,0.1056,0.1,0.1167,0.8944,0.8944,1.0,1.2733,2.0933
+rls_initplan_noindex,custom,"RLS (SELECT current_setting()), no B-tree",10,3,0.0866,0.0833,0.0883,0.6611,1.0,1.0,1.1167,1.5533
+rls_initplan_noindex,custom,"RLS (SELECT current_setting()), no B-tree",100,3,0.5394,0.5217,0.5583,0.1778,0.6389,1.0,1.0433,1.54
+rls_initplan_noindex,custom,"RLS (SELECT current_setting()), no B-tree",1000,3,0.7672,0.7283,0.79,0.0833,0.35,1.0,1.1767,1.53
+rls_initplan_noindex,custom,"RLS (SELECT current_setting()), no B-tree",10000,3,0.8811,0.8783,0.8833,0.0167,0.1056,1.0,1.2433,2.1533
+rls_initplan_noindex,generic,"RLS (SELECT current_setting()), no B-tree",1,3,0.1056,0.1,0.1167,0.8944,0.8944,1.0,1.2867,2.16
+rls_initplan_noindex,generic,"RLS (SELECT current_setting()), no B-tree",10,3,0.0866,0.0833,0.0883,0.6611,1.0,1.0,1.19,1.5533
+rls_initplan_noindex,generic,"RLS (SELECT current_setting()), no B-tree",100,3,0.5394,0.5217,0.5583,0.1778,0.6389,1.0,1.0667,1.6233
+rls_initplan_noindex,generic,"RLS (SELECT current_setting()), no B-tree",1000,3,0.7672,0.7283,0.79,0.0833,0.35,1.0,1.4967,2.3433
+rls_initplan_noindex,generic,"RLS (SELECT current_setting()), no B-tree",10000,3,0.8811,0.8783,0.8833,0.0167,0.1056,1.0,1.2533,2.1133
+rls_initplan_noindex,auto,"RLS (SELECT current_setting()), no B-tree",1,3,0.1056,0.1,0.1167,0.8944,0.8944,1.0,1.4533,2.21
+rls_initplan_noindex,auto,"RLS (SELECT current_setting()), no B-tree",10,3,0.0866,0.0833,0.0883,0.6611,1.0,1.0,1.35,1.7833
+rls_initplan_noindex,auto,"RLS (SELECT current_setting()), no B-tree",100,3,0.5394,0.5217,0.5583,0.1778,0.6389,1.0,1.27,2.29
+rls_initplan_noindex,auto,"RLS (SELECT current_setting()), no B-tree",1000,3,0.7672,0.7283,0.79,0.0833,0.35,1.0,1.4267,2.5733
+rls_initplan_noindex,auto,"RLS (SELECT current_setting()), no B-tree",10000,3,0.8811,0.8783,0.8833,0.0167,0.1056,1.0,1.4233,2.15
+rls_initplan_relaxed_noindex,custom,"RLS (SELECT ...), no B-tree, relaxed_order",1,3,0.4834,0.4667,0.5167,0.5166,0.5166,1.0,49.9833,59.0367
+rls_initplan_relaxed_noindex,custom,"RLS (SELECT ...), no B-tree, relaxed_order",10,3,0.5961,0.59,0.6017,0.0,0.7444,1.0,49.85,61.3833
+rls_initplan_relaxed_noindex,custom,"RLS (SELECT ...), no B-tree, relaxed_order",100,3,0.9978,0.9967,1.0,0.0,0.0,1.0,1.8433,22.5733
+rls_initplan_relaxed_noindex,custom,"RLS (SELECT ...), no B-tree, relaxed_order",1000,3,0.9817,0.98,0.9833,0.0,0.0,1.0,1.32,7.0833
+rls_initplan_relaxed_noindex,custom,"RLS (SELECT ...), no B-tree, relaxed_order",10000,3,0.9345,0.93,0.9367,0.0,0.0,1.0,1.3167,2.7733
+rls_initplan_relaxed_noindex,generic,"RLS (SELECT ...), no B-tree, relaxed_order",1,3,0.4834,0.4667,0.5167,0.5166,0.5166,1.0,50.8233,66.71
+rls_initplan_relaxed_noindex,generic,"RLS (SELECT ...), no B-tree, relaxed_order",10,3,0.5961,0.59,0.6017,0.0,0.7444,1.0,51.5533,65.17
+rls_initplan_relaxed_noindex,generic,"RLS (SELECT ...), no B-tree, relaxed_order",100,3,0.9978,0.9967,1.0,0.0,0.0,1.0,1.9867,23.8467
+rls_initplan_relaxed_noindex,generic,"RLS (SELECT ...), no B-tree, relaxed_order",1000,3,0.9817,0.98,0.9833,0.0,0.0,1.0,1.2867,7.03
+rls_initplan_relaxed_noindex,generic,"RLS (SELECT ...), no B-tree, relaxed_order",10000,3,0.9345,0.93,0.9367,0.0,0.0,1.0,1.2933,2.8533
+rls_initplan_relaxed_noindex,auto,"RLS (SELECT ...), no B-tree, relaxed_order",1,3,0.4834,0.4667,0.5167,0.5166,0.5166,1.0,51.5567,80.2167
+rls_initplan_relaxed_noindex,auto,"RLS (SELECT ...), no B-tree, relaxed_order",10,3,0.5961,0.59,0.6017,0.0,0.7444,1.0,50.64,67.4067
+rls_initplan_relaxed_noindex,auto,"RLS (SELECT ...), no B-tree, relaxed_order",100,3,0.9978,0.9967,1.0,0.0,0.0,1.0,1.97,23.1333
+rls_initplan_relaxed_noindex,auto,"RLS (SELECT ...), no B-tree, relaxed_order",1000,3,0.9817,0.98,0.9833,0.0,0.0,1.0,2.05,10.1933
+rls_initplan_relaxed_noindex,auto,"RLS (SELECT ...), no B-tree, relaxed_order",10000,3,0.9345,0.93,0.9367,0.0,0.0,1.0,1.9733,4.48
+btree_planner,custom,"+ B-tree on tenant_id, planner picks",1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2333,0.2933
+btree_planner,custom,"+ B-tree on tenant_id, planner picks",10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2533,0.36
+btree_planner,custom,"+ B-tree on tenant_id, planner picks",100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.33,0.45
+btree_planner,custom,"+ B-tree on tenant_id, planner picks",1000,3,1.0,1.0,1.0,0.0,0.0,0.0,0.8033,0.99
+btree_planner,custom,"+ B-tree on tenant_id, planner picks",10000,3,0.8811,0.8783,0.8833,0.0167,0.1056,1.0,1.35,2.3733
+btree_planner,generic,"+ B-tree on tenant_id, planner picks",1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2167,0.2767
+btree_planner,generic,"+ B-tree on tenant_id, planner picks",10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2467,0.32
+btree_planner,generic,"+ B-tree on tenant_id, planner picks",100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.3233,0.5533
+btree_planner,generic,"+ B-tree on tenant_id, planner picks",1000,3,1.0,1.0,1.0,0.0,0.0,0.0,0.8033,0.9667
+btree_planner,generic,"+ B-tree on tenant_id, planner picks",10000,3,1.0,1.0,1.0,0.0,0.0,0.0,5.36,6.2867
+rls_direct,custom,"RLS current_setting(), B-tree on tenant_id",1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.24,0.31
+rls_direct,custom,"RLS current_setting(), B-tree on tenant_id",10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.26,0.36
+rls_direct,custom,"RLS current_setting(), B-tree on tenant_id",100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.3333,0.42
+rls_direct,custom,"RLS current_setting(), B-tree on tenant_id",1000,3,1.0,1.0,1.0,0.0,0.0,0.0,0.8,1.0033
+rls_direct,custom,"RLS current_setting(), B-tree on tenant_id",10000,3,0.8811,0.8783,0.8833,0.0167,0.1056,1.0,1.35,2.2733
+rls_direct,generic,"RLS current_setting(), B-tree on tenant_id",1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2367,0.26
+rls_direct,generic,"RLS current_setting(), B-tree on tenant_id",10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2633,0.3633
+rls_direct,generic,"RLS current_setting(), B-tree on tenant_id",100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.34,0.3867
+rls_direct,generic,"RLS current_setting(), B-tree on tenant_id",1000,3,1.0,1.0,1.0,0.0,0.0,0.0,0.8133,1.0
+rls_direct,generic,"RLS current_setting(), B-tree on tenant_id",10000,3,1.0,1.0,1.0,0.0,0.0,0.0,5.2733,5.9867
+rls_direct,auto,"RLS current_setting(), B-tree on tenant_id",1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.3067,0.3767
+rls_direct,auto,"RLS current_setting(), B-tree on tenant_id",10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.3233,0.3867
+rls_direct,auto,"RLS current_setting(), B-tree on tenant_id",100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.3967,0.4733
+rls_direct,auto,"RLS current_setting(), B-tree on tenant_id",1000,3,1.0,1.0,1.0,0.0,0.0,0.0,0.86,1.2667
+rls_direct,auto,"RLS current_setting(), B-tree on tenant_id",10000,3,1.0,1.0,1.0,0.0,0.0,0.0,5.33,6.08
+rls_initplan,custom,"RLS (SELECT current_setting()), B-tree on tenant_id",1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2533,0.27
+rls_initplan,custom,"RLS (SELECT current_setting()), B-tree on tenant_id",10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2733,0.3
+rls_initplan,custom,"RLS (SELECT current_setting()), B-tree on tenant_id",100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.34,0.4133
+rls_initplan,custom,"RLS (SELECT current_setting()), B-tree on tenant_id",1000,3,1.0,1.0,1.0,0.0,0.0,0.0,0.7967,0.9267
+rls_initplan,custom,"RLS (SELECT current_setting()), B-tree on tenant_id",10000,3,1.0,1.0,1.0,0.0,0.0,0.0,5.19,5.7533
+rls_initplan,generic,"RLS (SELECT current_setting()), B-tree on tenant_id",1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2533,0.2767
+rls_initplan,generic,"RLS (SELECT current_setting()), B-tree on tenant_id",10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.28,0.33
+rls_initplan,generic,"RLS (SELECT current_setting()), B-tree on tenant_id",100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.35,0.4133
+rls_initplan,generic,"RLS (SELECT current_setting()), B-tree on tenant_id",1000,3,1.0,1.0,1.0,0.0,0.0,0.0,0.82,1.0067
+rls_initplan,generic,"RLS (SELECT current_setting()), B-tree on tenant_id",10000,3,1.0,1.0,1.0,0.0,0.0,0.0,5.33,6.0267
+rls_initplan,auto,"RLS (SELECT current_setting()), B-tree on tenant_id",1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.3,0.4
+rls_initplan,auto,"RLS (SELECT current_setting()), B-tree on tenant_id",10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.32,0.3967
+rls_initplan,auto,"RLS (SELECT current_setting()), B-tree on tenant_id",100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.39,0.49
+rls_initplan,auto,"RLS (SELECT current_setting()), B-tree on tenant_id",1000,3,1.0,1.0,1.0,0.0,0.0,0.0,0.8567,1.05
+rls_initplan,auto,"RLS (SELECT current_setting()), B-tree on tenant_id",10000,3,1.0,1.0,1.0,0.0,0.0,0.0,5.3067,6.1167
+rls_initplan_relaxed,custom,"RLS (SELECT ...), B-tree on tenant_id, relaxed_order",1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.28,0.3067
+rls_initplan_relaxed,custom,"RLS (SELECT ...), B-tree on tenant_id, relaxed_order",10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2967,0.3767
+rls_initplan_relaxed,custom,"RLS (SELECT ...), B-tree on tenant_id, relaxed_order",100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.36,0.42
+rls_initplan_relaxed,custom,"RLS (SELECT ...), B-tree on tenant_id, relaxed_order",1000,3,1.0,1.0,1.0,0.0,0.0,0.0,0.8267,0.9667
+rls_initplan_relaxed,custom,"RLS (SELECT ...), B-tree on tenant_id, relaxed_order",10000,3,1.0,1.0,1.0,0.0,0.0,0.0,5.1833,5.7
+rls_initplan_relaxed,generic,"RLS (SELECT ...), B-tree on tenant_id, relaxed_order",1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2767,0.3033
+rls_initplan_relaxed,generic,"RLS (SELECT ...), B-tree on tenant_id, relaxed_order",10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.2967,0.35
+rls_initplan_relaxed,generic,"RLS (SELECT ...), B-tree on tenant_id, relaxed_order",100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.3667,0.3967
+rls_initplan_relaxed,generic,"RLS (SELECT ...), B-tree on tenant_id, relaxed_order",1000,3,1.0,1.0,1.0,0.0,0.0,0.0,0.8333,0.98
+rls_initplan_relaxed,generic,"RLS (SELECT ...), B-tree on tenant_id, relaxed_order",10000,3,1.0,1.0,1.0,0.0,0.0,0.0,5.2433,5.8367
+rls_initplan_relaxed,auto,"RLS (SELECT ...), B-tree on tenant_id, relaxed_order",1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.31,0.33
+rls_initplan_relaxed,auto,"RLS (SELECT ...), B-tree on tenant_id, relaxed_order",10,3,1.0,1.0,1.0,0.0,0.0,0.0,0.3267,0.3633
+rls_initplan_relaxed,auto,"RLS (SELECT ...), B-tree on tenant_id, relaxed_order",100,3,1.0,1.0,1.0,0.0,0.0,0.0,0.3867,0.4267
+rls_initplan_relaxed,auto,"RLS (SELECT ...), B-tree on tenant_id, relaxed_order",1000,3,1.0,1.0,1.0,0.0,0.0,0.0,0.8967,1.5267
+rls_initplan_relaxed,auto,"RLS (SELECT ...), B-tree on tenant_id, relaxed_order",10000,3,1.0,1.0,1.0,0.0,0.0,0.0,5.3333,8.1333

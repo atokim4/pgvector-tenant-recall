@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from ptr.realdata import RealConfig, paragraphs, plan_layout
+from ptr.realdata import RealConfig, article_sample, load_articles, paragraphs, plan_layout
 
 
 def fake_articles(n: int = 3_000, seed: int = 1) -> list[tuple[str, list[str]]]:
@@ -57,3 +57,35 @@ def test_layout_is_deterministic():
 def test_too_few_rows_is_an_error():
     with pytest.raises(ValueError):
         plan_layout(fake_articles(), RealConfig(rows=300, background_tenants=200, probe_buckets={100: 2}))
+
+
+def test_article_sample_is_seeded_sorted_and_capped():
+    cfg = RealConfig(rows=1_000)
+    a, b = article_sample(10_000, cfg), article_sample(10_000, cfg)
+    assert (a == b).all() and len(a) == 2_000 and len(set(a.tolist())) == 2_000
+    assert (a[1:] > a[:-1]).all()
+    assert len(article_sample(500, cfg)) == 500
+
+
+def test_load_articles_reads_only_the_sample(tmp_path):
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+
+    n = 9_000
+    text = "x" * 90
+    pq.write_table(
+        pa.table({"title": [f"T{i}" for i in range(n)], "text": [f"{text}{i}\n{text}" for i in range(n)]}),
+        tmp_path / "w.parquet",
+        row_group_size=1_000,
+    )
+    cfg = RealConfig(rows=1_500)
+    got = load_articles(tmp_path / "w.parquet", cfg)
+    assert [t for t, _ in got] == [f"T{i}" for i in article_sample(n, cfg)]
+    assert all(len(parts) == 2 for _, parts in got)
+
+
+def test_small_tables_get_probe_tenants_that_fit():
+    from ptr.realdata import probe_buckets_for
+
+    assert sum(b * n for b, n in probe_buckets_for(50_000).items()) < 50_000 - 2_000
+    assert probe_buckets_for(200_000)[10_000] == 5

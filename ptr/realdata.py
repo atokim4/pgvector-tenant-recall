@@ -19,13 +19,15 @@ A query is the title of one of the tenant's own articles, phrased as a question
 synthetic set nobody tuned how close it lands to the tenant's rows.
 
 The embeddings are cached as .npy next to the parquet file, so the slow step
-(about 45 minutes for 200k chunks on 2 vCPU) runs once.
+runs once; it is saved in parts, so a stopped run picks up where it left off.
 """
 
 from __future__ import annotations
 
 import hashlib
 import json
+import shutil
+import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -38,6 +40,14 @@ PARQUET_URL = (
 )
 MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 DIM = 384
+
+
+# Probe tenants for tables under 200k rows: the default set alone needs 73,330 rows.
+SMALL_PROBE_BUCKETS: dict[int, int] = {1: 30, 10: 30, 100: 30, 1_000: 10, 10_000: 2}
+
+
+def probe_buckets_for(rows: int) -> dict[int, int]:
+    return dict(PROBE_BUCKETS if rows >= 200_000 else SMALL_PROBE_BUCKETS)
 
 
 @dataclass(frozen=True)
@@ -142,24 +152,62 @@ def plan_layout(articles: list[tuple[str, list[str]]], cfg: RealConfig) -> Layou
     return Layout(chunks, tenant_of_row, sizes, probes, queries)
 
 
+def article_sample(n_articles: int, cfg: RealConfig) -> np.ndarray:
+    """Seeded set of article indices to read: about two articles per wanted row.
+
+    Reading the whole dump (240k articles, about 1M paragraphs) costs more than 1 GB of
+    Python strings, which is what made the first 200k-row attempt swap on a 4 GB box.
+    """
+    want = min(n_articles, 2 * cfg.rows)
+    rng = np.random.default_rng(cfg.seed + 1)
+    return np.sort(rng.choice(n_articles, size=want, replace=False))
+
+
 def load_articles(parquet: Path, cfg: RealConfig) -> list[tuple[str, list[str]]]:
+    """Read only the sampled articles, one record batch at a time."""
     import pyarrow.parquet as pq
 
-    table = pq.read_table(parquet, columns=["title", "text"])
-    titles = table.column("title").to_pylist()
-    texts = table.column("text").to_pylist()
-    return [(t, paragraphs(x, cfg.min_chars, cfg.max_chars)) for t, x in zip(titles, texts, strict=True)]
+    file = pq.ParquetFile(parquet)
+    keep = article_sample(file.metadata.num_rows, cfg)
+    out: list[tuple[str, list[str]]] = []
+    start = 0
+    for batch in file.iter_batches(batch_size=4_096, columns=["title", "text"]):
+        lo, hi = np.searchsorted(keep, [start, start + batch.num_rows])
+        if hi > lo:
+            rows = (keep[lo:hi] - start).tolist()
+            titles = batch.column("title").take(rows).to_pylist()
+            texts = batch.column("text").take(rows).to_pylist()
+            out += [(t, paragraphs(x, cfg.min_chars, cfg.max_chars)) for t, x in zip(titles, texts, strict=True)]
+        start += batch.num_rows
+    return out
 
 
-def _embed(texts: list[str], cache_dir: Path) -> np.ndarray:
+EMBED_PART = 4_096
+
+
+def _embed(texts: list[str], cache_dir: Path, name: str) -> np.ndarray:
+    """Embed in parts of EMBED_PART texts; each finished part is saved, so a stopped run resumes."""
     from fastembed import TextEmbedding
 
-    model = TextEmbedding(MODEL, cache_dir=str(cache_dir / "models"))
+    parts_dir = cache_dir / f"{name}.parts"
+    parts_dir.mkdir(parents=True, exist_ok=True)
+    model: TextEmbedding | None = None
     out = np.empty((len(texts), DIM), dtype=np.float32)
-    for i, v in enumerate(model.embed(texts, batch_size=256)):
-        out[i] = v
-    norms = np.linalg.norm(out, axis=1, keepdims=True)
-    return out / norms
+    total = (len(texts) + EMBED_PART - 1) // EMBED_PART
+    for part in range(total):
+        lo, hi = part * EMBED_PART, min(len(texts), (part + 1) * EMBED_PART)
+        path = parts_dir / f"{part:04d}.npy"
+        if path.exists():
+            out[lo:hi] = np.load(path)
+            continue
+        if model is None:
+            model = TextEmbedding(MODEL, cache_dir=str(cache_dir / "models"), threads=2)
+        t = time.perf_counter()
+        chunk = np.stack(list(model.embed(texts[lo:hi], batch_size=64)))
+        np.save(path, chunk)
+        out[lo:hi] = chunk
+        print(f"embedded {name} part {part + 1}/{total} ({hi} texts, {time.perf_counter() - t:.0f}s)", flush=True)
+    return out / np.linalg.norm(out, axis=1, keepdims=True)
 
 
 def build(cfg: RealConfig, cache_dir: Path) -> Dataset:
@@ -171,10 +219,10 @@ def build(cfg: RealConfig, cache_dir: Path) -> Dataset:
     key = hashlib.sha256(json.dumps([MODEL, cfg.__dict__], sort_keys=True).encode()).hexdigest()[:12]
     rows_file = cache_dir / f"rows-{key}.npy"
     queries_file = cache_dir / f"queries-{key}.npy"
-    if not rows_file.exists():
-        np.save(rows_file, _embed(layout.chunks, cache_dir))
-    if not queries_file.exists():
-        np.save(queries_file, _embed([q for _, _, q in layout.queries], cache_dir))
+    for file, texts in ((rows_file, layout.chunks), (queries_file, [q for _, _, q in layout.queries])):
+        if not file.exists():
+            np.save(file, _embed(texts, cache_dir, file.stem))
+            shutil.rmtree(cache_dir / f"{file.stem}.parts")
     vectors = np.load(rows_file)
     qvecs = np.load(queries_file)
     if len(vectors) != len(layout.chunks):

@@ -270,6 +270,7 @@ FRAMEWORK_STRATEGIES: list[Strategy] = [
         FRAMEWORK,
         query="SELECT id, tenant_id FROM match_documents(%(q)s, %(k)s, CAST(%(filter)s AS jsonb))",
         setup=(MATCH_DOCUMENTS,),
+        function_call=True,
     ),
     Strategy(
         "supabase_match_documents_gin",
@@ -277,6 +278,7 @@ FRAMEWORK_STRATEGIES: list[Strategy] = [
         FRAMEWORK,
         query="SELECT id, tenant_id FROM match_documents(%(q)s, %(k)s, CAST(%(filter)s AS jsonb))",
         setup=(MATCH_DOCUMENTS,),
+        function_call=True,
         indexes=(GIN_PATH_OPS,),
     ),
     Strategy(

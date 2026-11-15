@@ -25,6 +25,11 @@ LAYOUT_ORDER = (HNSW, FRAMEWORK, HNSW_BTREE, PARTITIONED)
 CUSTOM = "custom"
 GENERIC = "generic"
 PLAN_CACHE_MODES = (CUSTOM, GENERIC)
+# "auto" leaves plan_cache_mode alone and runs a named prepared statement, so the
+# server makes the custom-or-generic choice itself (after five custom plans), as it
+# does for every driver that prepares; opt-in per strategy
+AUTO = "auto"
+ALL_PLAN_CACHE_MODES = (*PLAN_CACHE_MODES, AUTO)
 
 JSONB_FILTER = "metadata->>'user_id' = %(user)s"  # the filter shape of JSONB-metadata stores
 
@@ -50,6 +55,11 @@ class Strategy:
     setup: tuple[str, ...] = ()
     # the plan cache modes this code path can really end up in
     modes: tuple[str, ...] = PLAN_CACHE_MODES
+    # the statement calls a SQL function; its inner plan is read through auto_explain
+    function_call: bool = False
+    # run as this role (no BYPASSRLS), with the tenant id put in this setting before every query
+    role: str | None = None
+    tenant_setting: str | None = None
 
     @property
     def table(self) -> str:
@@ -71,6 +81,10 @@ class Strategy:
         if self.shape == EXACT:
             return f"SELECT id, tenant_id FROM {t} WHERE {self.filter} ORDER BY (embedding <=> %(q)s) + 0 LIMIT %(k)s"
         raise ValueError(f"unknown shape {self.shape}")
+
+    def param_names(self) -> list[str]:
+        """Placeholder names in order of first use: the $n order of dollar_sql()."""
+        return list(dict.fromkeys(re.findall(r"%\((\w+)\)s", self.sql())))
 
     def dollar_sql(self) -> str:
         """The same statement with $n placeholders, for EXPLAIN (GENERIC_PLAN)."""
